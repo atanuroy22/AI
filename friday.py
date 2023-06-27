@@ -97,10 +97,10 @@ def respond(voice_data):
         reply('Hey Atanu Whats up!')
 
     elif 'date of birth' in voice_data:
-        reply('22-05-1999!')
+        reply('Not set!')
         
-    elif 'my name' in voice_data:
-        reply('your name is Atanu Roy!')
+    # elif 'my name' in voice_data:
+    #     reply('your name is _____!')
 
     elif 'your name' in voice_data:
         reply('My name is friday i am build by Atanu!')
