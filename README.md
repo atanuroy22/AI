@@ -1,7 +1,7 @@
 # voice_search
-# install python from google
-# Open cmd as administrator and run one by one
-# if you getting any error massage me
+ install python from google
+ Open cmd as administrator and run one by one
+ if you getting any error massage me
 
 pip install pyttsx3==2.71
 pip install SpeechRecognition==3.8.1
