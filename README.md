@@ -1,1 +1,1 @@
-# voice_search Ai
+# Friday Ai
