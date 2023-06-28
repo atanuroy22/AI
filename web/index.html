@@ -18,6 +18,7 @@
         </div>
     </header>
     <!-- ChatBot -->
+    
     <div class="chat_icon">
         <i class="fa fa-comments" aria-hidden="true"></i>
     </div>
@@ -25,20 +26,38 @@
     <div class="chat_box">
         
             <div class="conv-form-wrapper" style="height:auto;">
-                <div id="messages" style="overflow-y:auto;height:400px;">
+                <video id="background-video"autoplay muted id="myVideo">
+                    <source src="images/J.mp4" type="video/mp4">
+                  </video>
+                  <div id="messages" style="overflow-y:auto;height:400px;">
                     </br></br>                    
                 </div>
+                
             </div>
             
             <div id="convForm" class="convFormDynamic" style="height:50px;position:absolute;left:10px;bottom:0px;margin:5px;">
                 <div class="options dragscroll"></div>
                 <input type="text" id="userInput" placeholder="Say Friday then your Queation" class="userInputDynamic" style="margin: 7px 7.575px 7px 10px; width: 300px; height: 24px;">
-                <button id="u" type="button" class="submit" style="margin-top:9px">▶</button>
+                <button id="u" type="button" onclick="search()" class="submit" style="margin-top:9px">Ai</button>
                 <span class="clear"></span>
             </div>
 
         </div>
-    
+<script>
+        function search() {
+            var query = document.getElementById("userInput").value.trim();
+            
+            if (query !== "") {
+              var encodedQuery = encodeURIComponent(query);
+              var searchUrl = "https://www.perplexity.ai/search?q=" + encodedQuery;
+              window.open(searchUrl, "_blank");
+            }
+          }
+          document.getElementById("userInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+              search();
+            }
+          });</script>
 </body>
     <script type="text/javascript" src="main.js"></script>
 </html>

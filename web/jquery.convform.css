@@ -3,7 +3,20 @@
    padding: 0px;
    font-family: sans-serif;
 }
-
+#background-video {
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+  }
+  #background-video ::after {
+    background-color: red !important;
+  }
 div.convFormDynamic {
     width: calc(100% - 33px);
     margin: 10px auto 15px;
@@ -70,7 +83,7 @@ div.conv-form-wrapper:before {
     top: 0;
     left: 0;
     z-index: 2;
-    background: linear-gradient(#000000, transparent);
+    background: linear-gradient(#1900ff, transparent);
 }
 @media (max-width: 767px) {
     div.conv-form-wrapper div.wrapper-messages, div.conv-form-wrapper div#messages {

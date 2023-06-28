@@ -1,9 +1,11 @@
 
+  
+
 //user clicked button
 document.getElementById("u").addEventListener("click", getUserInput, false);
 //user pressed enter '13'
 document.getElementById("userInput").addEventListener("keyup", function (event) {
-    if (event.keycode === 13) {
+    if (event.key === "Enter") {
         //cancel the default action
         event.preventDefault();
         //process event
