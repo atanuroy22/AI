@@ -17,7 +17,7 @@ import wikipedia
 import app
 from threading import Thread
 import pywhatkit
-
+import keyboard
 # -------------Object Initialization---------------
 today = date.today()
 r = sr.Recognizer()
@@ -372,46 +372,246 @@ def respond(voice_data):
         except:
             reply('Please check your Internet')
 
-    # Google Search quary        
-    # https://google.com/search?q=
 
-    elif 'search' in voice_data:
-        reply('Searching for ' + voice_data.split('search')[1])
-        url = 'https://www.perplexity.ai/search?q=' + voice_data.split('search')[1]
+
+
+
+
+
+
+
+
+
+
+    elif 'type' in voice_data:
+        text = voice_data.replace('type', '')
         try:
-            webbrowser.get().open(url)
-            reply('This is what I found ')
+            keyboard.type(text)
+            reply("Text has been typed successfully!")
+        except Exception as e:
+            reply(f"Sorry, I am unable to type: {str(e)}")
+
+    elif 'pause' in voice_data:
+        # Simulate spacebar press to pause/play
+        try:    
+            keyboard.press(Key.space)
+            keyboard.release(Key.space)
+            reply("Playback paused.")
         except:
-            reply('Please check your Internet')
-    
-    
-    elif 'location' in voice_data:
-        reply('📍Which place are you looking for?📍')
-        temp_audio = record_audio()
-        app.eel.addUserMsg(temp_audio)
-        reply('Locating...')
-        url = 'https://google.nl/maps/place/' + temp_audio + '/&amp;'
+            reply("I did not hear your voice.")   
+
+    elif 'fast' in voice_data:
+        # Simulate > key press to increase playback speed
         try:
-            webbrowser.get().open(url)
-            reply('This is what I found Atanu')
+            keyboard.press('>')
+            keyboard.release('>')
+            reply("Playback speed increased.")
         except:
-            reply('Please check your Internet')
-    elif 'copy' in voice_data:
-        with keyboard.pressed(Key.ctrl):
+            reply("I did not hear your voice.")
+
+    elif 'slow' in voice_data:
+        # Simulate < key press to decrease playback speed
+        try:
+            keyboard.press('<')
+            keyboard.release('<')
+            reply("Playback speed decreased.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'full' in voice_data:
+        # Simulate f key press to toggle full screen
+        try:
+            keyboard.press('f')
+            keyboard.release('f')
+            reply("Toggled full screen.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'skip' in voice_data:
+        # Simulate right arrow key press to skip forward
+        try:
+            keyboard.press(Key.right)
+            keyboard.release(Key.right)
+            reply("Skipped 5 seconds.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'skip ten' in voice_data:
+        # Simulate l key press to skip forward by 10 seconds
+        try:
+            keyboard.press('l')
+            keyboard.release('l')
+            reply("Skipped 10 seconds.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'next' in voice_data:
+        # Simulate shift + n key press to play next video
+        try:
+            keyboard.press(Key.shift)
+            keyboard.press('n')
+            keyboard.release(Key.shift)
+            keyboard.release('n')
+            reply("Playing next video.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'previous' in voice_data:
+        # Simulate shift + p key press to play previous video
+        try:
+            keyboard.press(Key.shift)
+            keyboard.press('p')
+            keyboard.release(Key.shift)
+            keyboard.release('p')
+            reply("Playing previous video.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'mute' in voice_data:
+        # Simulate m key press to mute/unmute video
+        try:
+            keyboard.press('m')
+            keyboard.release('m')
+            reply("Video muted.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'volume up' in voice_data:
+        # Simulate up arrow key press to increase volume
+        try:
+            keyboard.press(Key.up)
+            keyboard.release(Key.up)
+            reply("Volume up.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'volume down' in voice_data:
+        # Simulate down arrow key press to decrease volume
+        try:
+            keyboard.press(Key.down)
+            keyboard.release(Key.down)
+            reply("Volume down.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'stop' in voice_data:
+        # Simulate q key press to stop playback
+        try:
+            keyboard.press('q')
+            keyboard.release('q')
+            reply("Playback stopped.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'subtitle' in voice_data:
+        # Simulate c key press to toggle subtitles
+        try:
             keyboard.press('c')
             keyboard.release('c')
-        reply('Copied')
-          
-    elif 'page' in voice_data or 'pest'  in voice_data or 'paste' in voice_data:
-        with keyboard.pressed(Key.ctrl):
-            keyboard.press('v')
-            keyboard.release('v')
-        reply('Pasted')
-        
-    elif ('bye' in voice_data) or ('by' in voice_data):
-        reply("Good bye Atanu! Have a nice day.")
-        is_awake = False
+            reply("Toggled subtitles.")
+        except:
+            reply("I did not hear your voice.")
 
+    elif 'mini' in voice_data:
+        # Simulate i key press to enter/exit mini player mode
+        try:
+            keyboard.press('i')
+            keyboard.release('i')
+            reply("Entered/Exited mini player mode.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'screenshot' in voice_data:
+        # Take a screenshot using pyautogui
+        try:
+                keyboard.press(Key.alt)
+                keyboard.press(Key.print_screen)
+                keyboard.release(Key.alt)
+                keyboard.release(Key.print_screen)
+                reply("Screenshot captured & Saved To Dexktop.")
+        except:("i did not hear your voice")
+
+    elif 'close this' in voice_data:
+        # Close the active application
+        try:
+            keyboard.press(Key.alt)
+            keyboard.press(Key.f4)
+            keyboard.release(Key.alt)
+            keyboard.release(Key.f4)
+            reply("Application closed.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'shutdown' in voice_data:
+        # Shut down the system
+        try:
+            reply("Shutting down the system.")
+            os.system("shutdown /s /t 1")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'search' in voice_data:
+        # Search the web using pywhatkit
+        query = voice_data.replace('search', '')
+        try:
+            pywhatkit.search(query)
+            reply("Searching for " + query + ".")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'location' in voice_data:
+        # Search for a location on Google Maps
+        reply("Which place are you looking for?")
+        location = record_audio()
+        if location:
+            url = 'https://www.google.com/maps/search/' + location.replace(' ', '+')
+            try:
+                webbrowser.get().open(url)
+                reply("Locating " + location + ".")
+            except:
+                reply("Please check your internet connection.")
+        else:
+            reply("I did not hear your voice.")
+
+    elif 'copy' in voice_data:
+        # Simulate Ctrl+C key press to copy
+        try:
+            keyboard.press(Key.ctrl)
+            keyboard.press('c')
+            keyboard.release(Key.ctrl)
+            keyboard.release('c')
+            reply("Copied.")
+        except:
+            reply("I did not hear your voice.")
+
+    elif 'paste' in voice_data:
+        # Simulate Ctrl+V key press to paste
+        try:
+            keyboard.press(Key.ctrl)
+            keyboard.press('v')
+            keyboard.release(Key.ctrl)
+            keyboard.release('v')
+            reply("Pasted.")
+        except:
+            reply("I did not hear your voice.")
+
+            #open admin folder like Atanu roy 
+    elif 'open folder' in voice_data:
+            reply("Which folder or application in atanu folder?")
+            try:
+               application = record_audio()
+               if application:
+                   os.startfile(application)
+                   reply(f"Opening {application}.")
+               else:
+                   reply("I'm sorry, I didn't catch the name.")
+            except:
+                reply("file not found")
+
+    elif 'bye' in voice_data or 'goodbye' in voice_data:
+        # Exit the program
+        reply("Goodbye! Have a nice day.")
+        exit()
     
    
     # File Navigation (Default Folder set to C://)
