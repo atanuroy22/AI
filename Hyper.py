@@ -1,4 +1,5 @@
 import pyttsx3
+import requests
 import speech_recognition as sr
 from datetime import date
 import time
@@ -24,7 +25,7 @@ r = sr.Recognizer()
 keyboard = Controller()
 engine = pyttsx3.init()
 
-#For Girl Voice Disable Jarvis & Enable it----------------------
+#For Girl Voice Disable hyper & Enable it----------------------
 
 # engine = pyttsx3.init('sapi5')
 # engine = pyttsx3.init()
@@ -32,16 +33,16 @@ engine = pyttsx3.init()
 # engine.setProperty('voice', voices[1].id)
 
 
-# Get a list of voices & Finding Jarvis Voice--------------
+# Get a list of voices & Finding hyper Voice--------------
 
 voices = engine.getProperty('voices')
-jarvis_voice = None
+hyper_voice = None
 for voice in voices:
-    if voice.name == "Jarvis":
-        jarvis_voice = voice
+    if voice.name == "hyper":
+        hyper_voice = voice
         break
-if jarvis_voice:
-    engine.setProperty('voice', jarvis_voice.id)
+if hyper_voice:
+    engine.setProperty('voice', hyper_voice.id)
 engine.runAndWait()
 
 # ----------------Variables------------------------
@@ -74,7 +75,7 @@ def wish():
         reply("Good Afternoon !")   
     else:
         reply("Good Evening !")  
-    reply("Hey Welcome, I am friday!!")    
+    reply("Hey Welcome, I am hyper!!")    
     reply("What can i do for you,,...!!!!!")
 
 # Set Microphone parameters
@@ -108,7 +109,7 @@ def record_audio():
 def respond(voice_data):
     global file_exp_status, files, is_awake, path
     print(voice_data)
-    voice_data.replace('friday','')
+    voice_data.replace('hyper','')
     app.eel.addUserMsg(voice_data)
 
     if is_awake==False:
@@ -119,17 +120,50 @@ def respond(voice_data):
     elif 'hello' in voice_data:
         wish()
     
-    elif 'hey friday' in voice_data:
+    elif 'hey hyper' in voice_data:
         reply('Hey Atanu Whats up!')
 
     elif 'date of birth' in voice_data:
         reply('Not set!')
         
+    elif "weather" in voice_data:
+        try:
+            api_key="8ef61edcf1c576d65d836254e11ea420"
+            base_url="https://api.openweathermap.org/data/2.5/weather?"
+            reply("whats the city name")
+            city_name=record_audio()
+            complete_url=base_url+"appid="+api_key+"&q="+city_name
+            response = requests.get(complete_url)
+            x=response.json()
+            if x["cod"]!="404":
+                y=x["main"]
+                current_temperature = y["temp"]
+                current_humidiy = y["humidity"]
+                z = x["weather"]
+                weather_description = z[0]["description"]
+                current_temperature=current_temperature-273.15
+                reply(" Temperature  is " +
+                      str(current_temperature) +"Degree Celcious" +
+                      "\n humidity in percentage is " +
+                      str(current_humidiy) +
+                      "\n description =\n" +
+                      str(weather_description))
+                print(" Temperature  is " +
+                      str(current_temperature) +"Degree Celcious" +
+                      "\n humidity (in percentage) = " +
+                      str(current_humidiy) +
+                      "\n description =\n " +
+                      str(weather_description))
+
+            else:
+                reply(" City Not Found ")
+        except:
+            reply("Server Error")
     # elif 'my name' in voice_data:
     #     reply('your name is _____!')
 
     elif 'your name' in voice_data:
-        reply('My name is friday i am build by Atanu!')
+        reply('My name is hyper i am build by Atanu!')
     
     elif 'i love you' in voice_data:
         reply('I  love you too Atanu!')
@@ -219,26 +253,26 @@ def respond(voice_data):
             reply('Please check your Internet')
 
     elif 'play' in voice_data:
-            voice_data = voice_data.replace('friday', '')
+            voice_data = voice_data.replace('hyper', '')
             song = voice_data.replace('play', '')
             reply('playing ' + song)
             pywhatkit.playonyt(song) 
 
     elif 'what is' in voice_data:
-            person = voice_data.replace('friday', '')
+            person = voice_data.replace('hyper', '')
             info = wikipedia.summary(person,2)
             print(info)
             reply(info)
 
     elif 'who' in voice_data:
-            person = voice_data.replace('friday', '')
+            person = voice_data.replace('hyper', '')
             info = wikipedia.summary(person,1)
             print(info)
             reply(info)
 
     elif 'code' in voice_data:
         reply('Please Wait a Moment Wile Generating From an Ai' + voice_data.split('code')[1])
-        a = voice_data.lstrip("friday ")
+        a = voice_data.lstrip("hyper ")
         search_query = a.replace(" ", "+")
         url = 'https://www.perplexity.ai/search?q=' + search_query
         try:
@@ -249,7 +283,7 @@ def respond(voice_data):
 
     elif 'write' in voice_data:
         reply('Please Wait a Moment Wile Generating From an Ai' + voice_data.split('write')[1])
-        a = voice_data.lstrip("friday ")
+        a = voice_data.lstrip("hyper ")
         search_query = a.replace(" ", "+")
         url = 'https://www.perplexity.ai/search?q=' + search_query
         try:
@@ -260,7 +294,7 @@ def respond(voice_data):
             
     elif 'give' in voice_data:
         reply('Please Wait a Moment Wile Generating From an Ai' + voice_data.split('give')[1])
-        a = voice_data.lstrip("friday ")
+        a = voice_data.lstrip("hyper ")
         search_query = a.replace(" ", "+")
         url = 'https://www.perplexity.ai/search?q=' + search_query
         try:
@@ -271,7 +305,7 @@ def respond(voice_data):
             
     elif 'tell' in voice_data:
         reply('Please Wait a Moment Wile Generating From an Ai' + voice_data.split('tell')[1])
-        a = voice_data.lstrip("friday ")
+        a = voice_data.lstrip("hyper ")
         search_query = a.replace(" ", "+")
         url = 'https://www.perplexity.ai/search?q=' + search_query
         try:
@@ -326,7 +360,7 @@ def respond(voice_data):
         reply("I'm doing great, thank you!")
 
     elif 'inspire me' in voice_data or 'quote of the day' in voice_data:
-        reply("Why don't scientists trust atoms? Because they make up everything!")
+        reply("Why don't scientists trust ahypers? Because they make up everything!")
         
     elif 'thank you' in voice_data:
         reply("You're welcome! I'm here to help.")
@@ -595,7 +629,7 @@ def respond(voice_data):
         except:
             reply("I did not hear your voice.")
 
-            #open admin folder like Atanu roy 
+            #open hyper folder like Atanu roy 
     elif 'open folder' in voice_data:
             reply("Which folder or application in atanu folder?")
             try:
@@ -669,7 +703,7 @@ def respond(voice_data):
         reply("did not here your voice")
         reply("you cam Manually Type and search using ai")
     #Open Every Time (Error)    
-    #     a = voice_data.lstrip("friday ")
+    #     a = voice_data.lstrip("hyper ")
     # search_query = a.replace(" ", "+")
     
     # search_url = 'https://www.perplexity.ai/search?q=' + search_query
@@ -697,7 +731,7 @@ while True:
         voice_data = record_audio()
 
     #process voice_data
-    if 'friday' in voice_data:
+    if 'hyper' in voice_data:
         try:
             #Handle sys.exit()
             respond(voice_data)
