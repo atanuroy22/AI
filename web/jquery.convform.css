@@ -29,15 +29,15 @@ div.convFormDynamic input.userInputDynamic {
     border: none;
     padding: 6px 6px;
     outline: none;
-    font-size: 0.905rem;
+    font-size: 0.805rem;
     float: left;
-    width: 72%;
+    width: 57%;
     height: 25%;
     line-height: 1.3em;
     min-height: 1.7em;
     max-height: 10rem;
     display: block;
-    max-width: 72%;
+    max-width: 57%;
     margin-right: 2.5%;
 }
 div.conv-form-wrapper:after {
@@ -193,7 +193,7 @@ div.convFormDynamic button.submit {
     color: #06c5a6;
     cursor: pointer;
     border-radius: 8px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     width: 36px;
     height: 35px;
     margin-top: 8px;

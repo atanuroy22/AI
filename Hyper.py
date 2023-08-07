@@ -90,9 +90,10 @@ def record_audio():
         # pause after 0.8 secnd
         # r.pause_threshold = 0.8
         voice_data = ''
-        audio = r.listen(source)
+        # For No Time Limit
+        # audio = r.listen(source)
         #For time limit
-        # audio = r.listen(source, phrase_time_limit=5)
+        audio = r.listen(source, phrase_time_limit=8)
         try:
             voice_data = r.recognize_google(audio)
         except sr.RequestError:
