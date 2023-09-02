@@ -255,22 +255,29 @@ def respond(voice_data):
 
     elif 'play' in voice_data:
             voice_data = voice_data.replace('hyper', '')
-            song = voice_data.replace('play', '')
-            reply('playing ' + song)
-            pywhatkit.playonyt(song) 
+            try:
+                song = voice_data.replace('play', '')
+                reply('playing ' + song)
+                pywhatkit.playonyt(song) 
+            except:
+                reply('Speak Loudly')
 
     elif 'what is' in voice_data:
             person = voice_data.replace('hyper', '')
-            info = wikipedia.summary(person,2)
-            print(info)
-            reply(info)
-
+            try:
+                info = wikipedia.summary(person,2)
+                print(info)
+                reply(info)
+            except:
+                reply('Did not find it')
     elif 'who' in voice_data:
             person = voice_data.replace('hyper', '')
-            info = wikipedia.summary(person,1)
-            print(info)
-            reply(info)
-
+            try:    
+                info = wikipedia.summary(person,1)
+                print(info)
+                reply(info)
+            except:
+                reply('Did not find it')
     elif 'code' in voice_data:
         reply('Please Wait a Moment Wile Generating From an Ai' + voice_data.split('code')[1])
         a = voice_data.lstrip("hyper ")
@@ -419,12 +426,14 @@ def respond(voice_data):
 
 
     elif 'type' in voice_data:
-        text = voice_data.replace('type', '')
-        try:
-            keyboard.type(text)
-            reply("Text has been typed successfully!")
-        except Exception as e:
-            reply(f"Sorry, I am unable to type: {str(e)}")
+            reply("tell me what to type.")
+            try:
+                text = record_audio()  # Listen for user input
+                keyboard.type(text)
+                reply("Done")
+            except:
+                reply("Sorry, I am unable to type: ")
+
 
     elif 'pause' in voice_data:
         # Simulate spacebar press to pause/play
@@ -701,8 +710,11 @@ def respond(voice_data):
                 app.ChatBot.addAppMsg(filestr)
                    
     else: 
-        reply("did not here your voice")
-        reply("you cam Manually Type and search using ai")
+        try: 
+            reply("did not here your voice")
+            reply("you cam Manually Type and search")
+        except:
+            type('')    
     #Open Every Time (Error)    
     #     a = voice_data.lstrip("hyper ")
     # search_query = a.replace(" ", "+")
